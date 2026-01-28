@@ -7,7 +7,7 @@ import JoinRoom from './components/JoinRoom.vue'
 import Room from './components/Room.vue'
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory("palette"),
   routes: [
     {
       path: "/",

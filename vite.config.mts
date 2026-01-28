@@ -9,4 +9,5 @@ export default defineConfig({
       include: ["events"],
     }),
   ],
+  base: "palette"
 });
