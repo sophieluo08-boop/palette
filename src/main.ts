@@ -1,5 +1,5 @@
 import { createApp } from "vue";
-import { createRouter, createWebHistory, RouterView } from "vue-router";
+import { createRouter, createWebHashHistory, RouterView } from "vue-router";
 import { GraffitiPlugin } from "@graffiti-garden/wrapper-vue";
 import { GraffitiDecentralized } from "@graffiti-garden/implementation-decentralized";
 import CreateRoom from './components/CreateRoom.vue'
@@ -7,7 +7,7 @@ import JoinRoom from './components/JoinRoom.vue'
 import Room from './components/Room.vue'
 
 const router = createRouter({
-  history: createWebHistory("palette"),
+  history: createWebHashHistory("palette"),
   routes: [
     {
       path: "/",
