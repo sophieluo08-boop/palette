@@ -1,8 +1,7 @@
-import { createApp } from "vue";
+import { createApp, onMounted } from "vue";
 import { createRouter, createWebHashHistory, RouterView } from "vue-router";
 import { GraffitiPlugin } from "@graffiti-garden/wrapper-vue";
 import { GraffitiDecentralized } from "@graffiti-garden/implementation-decentralized";
-import CreateRoom from './components/CreateRoom.vue'
 import JoinRoom from './components/JoinRoom.vue'
 import Room from './components/Room.vue'
 
@@ -19,12 +18,6 @@ const router = createRouter({
       name: "home",
       component: () => import("./components/Home.vue"),
       meta: { requiresAuth: true }, // Mark as protected route
-    },
-    {
-      path: '/create-room',
-      name: 'CreateRoom',
-      component: CreateRoom,
-      meta: {requiresAuth: true}
     },
     {
       path: '/join-room',
@@ -72,6 +65,15 @@ router.beforeEach((to, from, next) => {
     // Allow navigation
     next();
   }
+});
+
+router.afterEach((to, from) => {
+  console.log('Current page:', to.fullPath, '| Route name:', to.name)
+})
+
+onMounted(() => {
+  // Always redirect to home on page load
+  router.replace({ name: 'home' });
 });
 
 app.mount("#app");

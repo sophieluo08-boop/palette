@@ -25,6 +25,23 @@ const handleLogout = async () => {
     router.push("/");
   }
 };
+
+const createRoom = async () => {
+  if (!$graffitiSession?.value) return;
+  const code = genCode(5)
+  await graffiti.post(
+    {
+      channels: ["fill:"+code, "fill"],
+      value: { code, createdAt: Date.now() },
+    },
+    $graffitiSession.value,
+  )
+  router.push({ name: 'Room', params: { code } })
+}
+function genCode(len = 5) {
+  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+  return Array.from({ length: len }, () => letters[Math.floor(Math.random() * letters.length)]).join('')
+}
 </script>
 
 <template>
@@ -43,7 +60,7 @@ const handleLogout = async () => {
         <router-link to="/gameplay" class="play-button">
           PLAY
         </router-link>
-        <router-link to="/create-room" class="create-room-button">CREATE ROOM</router-link>
+        <button @click="createRoom" class="create-room-button">CREATE ROOM</button>
         <router-link to="/join-room" class="join-room-button">JOIN ROOM</router-link>
         <button @click="handleLogout" class="logout-button">
           LOGOUT

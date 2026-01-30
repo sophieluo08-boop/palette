@@ -10,6 +10,8 @@ const router = useRouter();
 const instance = getCurrentInstance();
 const $graffitiSession = instance?.appContext.config.globalProperties.$graffitiSession;
 
+console.log('Login.vue: $graffitiSession =', $graffitiSession)
+
 // Watch for session changes and redirect when logged in
 if ($graffitiSession) {
   watch($graffitiSession, (session) => {
@@ -28,18 +30,18 @@ const handleLogin = async () => {
   <div class="login">
     <div class="content">
       <div class="title-section">
-        <h1 class="title">FILL</h1>
+        <h1 class="title">PALETTE</h1>
       </div>
       <div class="button-section">
-        <!-- Only show login button if not logged in -->
+        <!-- Show login button if session is missing or invalid -->
         <button
-          v-if="$graffitiSession === null"
+          v-if="!$graffitiSession || !$graffitiSession.value || !$graffitiSession.value.actor"
           @click="handleLogin"
           class="login-button"
         >
           LOGIN
         </button>
-        <p v-else-if="$graffitiSession === undefined" class="loading-text"> <!--check user logged in -->
+        <p v-else class="loading-text">
           Loading...
         </p>
       </div>
@@ -55,6 +57,7 @@ const handleLogin = async () => {
   align-items: center;
   justify-content: center;
   background: black;
+  position: relative;
 }
 
 .content {
@@ -105,4 +108,28 @@ const handleLogin = async () => {
   border: none;
 }
 
+.loading-text {
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+@media (max-width: 700px) {
+  .content {
+    flex-direction: column;
+    gap: 2rem;
+    padding: 0 1rem;
+    justify-content: center;
+  }
+  .title-section {
+    justify-content: center;
+  }
+  .title {
+    font-size: 2.5rem;
+    text-align: center;
+  }
+  .button-section {
+    justify-content: center;
+  }
+}
 </style>

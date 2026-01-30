@@ -74,9 +74,85 @@ async function join() {
 
 <template>
   <div class="join-room">
-    <h1>Join Room</h1>
-    <input v-model="code" placeholder="Enter 5-letter code" />
-    <button @click="join" :disabled="loading">Join</button>
-    <div v-if="error" class="error">{{ error }}</div>
+    <div class="join-card">
+      <h1>Join a Room</h1>
+      <p class="subtitle">Enter your 5-letter room code below to join a game.</p>
+      <input v-model="code" maxlength="5" placeholder="Room Code" class="room-input" />
+      <button @click="join" :disabled="loading" class="join-btn">Join Room</button>
+      <div v-if="error" class="error-msg">{{ error }}</div>
+    </div>
   </div>
 </template>
+
+<style scoped>
+.join-room {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(120deg, #e0eaff 0%, #f8f8fa 100%);
+}
+.join-card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 32px 0 rgba(0,0,0,0.10);
+  padding: 2.5rem 2.5rem 2rem 2.5rem;
+  max-width: 350px;
+  width: 100%;
+  text-align: center;
+}
+h1 {
+  font-size: 2.1rem;
+  font-weight: 800;
+  margin-bottom: 0.7rem;
+  color: #2563eb;
+  letter-spacing: 0.04em;
+}
+.subtitle {
+  color: #555;
+  font-size: 1.08rem;
+  margin-bottom: 1.5rem;
+}
+.room-input {
+  width: 100%;
+  font-size: 1.3rem;
+  padding: 0.7rem 1.2rem;
+  border-radius: 10px;
+  border: 2px solid #e0e0e0;
+  background: #f8f8fa;
+  margin-bottom: 1.2rem;
+  font-family: 'Fira Mono', 'Consolas', 'Menlo', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  transition: border 0.2s;
+}
+.room-input:focus {
+  border-color: #2563eb;
+  outline: none;
+}
+.join-btn {
+  width: 100%;
+  padding: 0.7rem 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  border-radius: 10px;
+  border: none;
+  background: #4f8cff;
+  color: #fff;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04);
+  cursor: pointer;
+  transition: background 0.18s;
+}
+.join-btn:disabled {
+  background: #bfc7d1;
+  cursor: not-allowed;
+}
+.join-btn:not(:disabled):hover {
+  background: #2563eb;
+}
+.error-msg {
+  color: #c9372c;
+  margin-top: 1rem;
+  font-size: 1.05rem;
+}
+</style>
